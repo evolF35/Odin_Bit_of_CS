@@ -23,4 +23,4 @@ function fibsIterator(n){
 }
 
 
-console.log(fibsIterator(3));
+console.log(fibsIterator(20));
