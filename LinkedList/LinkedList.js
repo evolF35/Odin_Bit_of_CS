@@ -31,7 +31,7 @@ function LinkedList() {
 
         let node = newNode(value,this.start);
 
-        this.start.pointer = node;
+        this.start = node;
     },
 
     size(){
@@ -129,15 +129,21 @@ function LinkedList() {
 
         return(string);
     }
-
 }
 
 }
 
 let li = LinkedList();
-li.append(9);
-li.append(10);
-li.append(12);
+
 li.prepend(2);
+li.prepend(34);
+li.prepend(24);
+li.prepend(24);
+li.prepend(24);
+
+
+
 
 console.log(li.head());
+
+console.log(li.size());
