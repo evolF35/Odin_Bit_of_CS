@@ -1,39 +1,40 @@
 
-
-function newNode(value,pointer){
+function newNode(value,pointer = null){
     return{
-        value:value,
-        pointer:pointer
+        value,
+        pointer
     }
 }
 
 function LinkedList() {
 
-    function append(value){
+    return{
+        start: null,
 
-        let newNode = newNode(value);
+    append(value){
+
+        let node = newNode(value);
 
         if(this.start === null){
-            this.start = newNode;
+            this.start = node;
         }
         else{
             let end = this.start;
             while(end.pointer !== null){
                 end = end.pointer;
             }
-            end.pointer = newNode;
+            end.pointer = node;
         }
-    }
+    },
 
-    function prepend(value){
+    prepend(value){
 
-        let newNode = newNode(value,this.start);
+        let node = newNode(value,this.start);
 
-        this.start.pointer = newNode;
+        this.start.pointer = node;
+    },
 
-    }
-
-    function size(){
+    size(){
 
         let count = 0;
         let current = this.start;
@@ -42,16 +43,15 @@ function LinkedList() {
             current = current.pointer;
         }
         return(count);
+    },
 
-    }
-
-    function head(){
+    head(){
 
         return(this.start);
 
-    }
+    },
 
-    function tail(){
+    tail(){
 
         let current = this.start;
         while(current !== null){
@@ -59,9 +59,9 @@ function LinkedList() {
         }
         return(current);
 
-    }
+    },
 
-    function at(index){
+    at(index){
 
         let current = this.start;
         let i = 0;
@@ -73,9 +73,9 @@ function LinkedList() {
             i = i + 1;
         }
         return(current);
-    }
+    },
 
-    function pop(){
+    pop(){
 
         let current = this.start;
 
@@ -85,9 +85,9 @@ function LinkedList() {
 
         current.pointer = null;
 
-    }
+    },
 
-    function contains(value){
+    contains(value){
 
         let current = this.start;
 
@@ -98,9 +98,9 @@ function LinkedList() {
             current = current.pointer;
         }
         return(false);
-    }
+    },
 
-    function find(value){
+    find(value){
 
         let current = this.start;
 
@@ -114,9 +114,9 @@ function LinkedList() {
         current = current.pointer;
     }
     return(0);
-}
+},
 
-    function toString(){
+    toString(){
 
         let string = ``;
 
@@ -124,27 +124,20 @@ function LinkedList() {
 
         while(current.pointer !== null){
             string += `${current.value}`;
-            current = current.next;
+            current = current.pointer;
         }
 
         return(string);
     }
 
+}
 
-
-    return{
-        start: null,
-        append,
-        prepend,
-        size,
-        head,
-        tail,
-        at,
-        pop,
-        contains,
-        find,
-        toString
-    }
 }
 
 let li = LinkedList();
+li.append(9);
+li.append(10);
+li.append(12);
+li.prepend(2);
+
+console.log(li.head());
