@@ -54,7 +54,7 @@ function LinkedList() {
     tail(){
 
         let current = this.start;
-        while(current !== null){
+        while(current.pointer !== null){
             current = current.pointer;
         }
         return(current);
@@ -97,6 +97,10 @@ function LinkedList() {
             }
             current = current.pointer;
         }
+        if(current.value === value){
+            return(true);
+        }
+
         return(false);
     },
 
@@ -113,6 +117,10 @@ function LinkedList() {
         i = i + 1;
         current = current.pointer;
     }
+    if(current.value === value){
+        return(i);
+    }
+
     return(0);
 },
 
@@ -123,9 +131,11 @@ function LinkedList() {
         let current = this.start;
 
         while(current.pointer !== null){
-            string += `${current.value}`;
+            string += `${current.value} -> `;
             current = current.pointer;
         }
+        string += `${current.value}`;
+
 
         return(string);
     }
@@ -137,9 +147,10 @@ let li = LinkedList();
 
 li.prepend(2);
 li.prepend(34);
+li.prepend(44);
+li.prepend(4);
 li.prepend(24);
-li.prepend(24);
-li.prepend(24);
+li.append(90);
 
 
 
@@ -147,3 +158,26 @@ li.prepend(24);
 console.log(li.head());
 
 console.log(li.size());
+
+console.log(li.head());
+console.log(li.tail());
+
+console.log("goo");
+
+console.log(li.at(2));
+
+console.log(li.size());
+console.log(li.tail());
+
+li.pop();
+console.log(li.size());
+console.log(li.tail());
+
+
+console.log(li.contains(2));
+
+
+console.log(li.find(2));
+
+
+console.log(li.toString());
