@@ -7,18 +7,31 @@ function newNode(value,leftPtr = null,rightPtr = null){
     }
 }
 
+function  buildTree(array){
+    let setArray = [...new Set(array)];
+    let newArray = [...setArray];
+
+    newArray = mergeSort(newArray);
+
+    let n = newArray.length;
+    rt = sortedArrayToBST(newArray,0,n-1);
+
+    return(rt);
+}
+
+function sortedArrayToBST(array,start,end) {
+    if(start > end){
+        return null;
+    }
+    let mid = parseInt((start+end)/2);
+    let node = newNode(array[mid]);
+    node.leftPtr = sortedArrayToBST(array,start, mid -1);
+    node.rightPtr = sortedArrayToBST(array,mid + 1, end);
+    return (node);
+}
+
 function newTree(array){
 
-    function sortedArrayToBST(array,start,end) {
-        if(start > end){
-            return null;
-        }
-        let mid = parseInt((start+end)/2);
-        let node = newNode(array[mid]);
-        node.leftPtr = sortedArrayToBST(array,start, mid -1);
-        node.rightPtr = sortedArrayToBST(array,mid + 1, end);
-        return (node);
-    }
 
     function preOrder(node){
     if (node == null) {return;}
@@ -41,20 +54,20 @@ function newTree(array){
     console.log((node.value + " "));
     }
 
-    function find(root,value){
+    function find(value,root = this.root){
 
         if(root == null || root.value == value){
             return root;
         }
 
-        if(root.value < value){
-            return(find(root.rightPtr),value);
+        if(root.value > value){
+            return(find(value,root.leftPtr));
         }
-        return(find(root.leftPtr),value);
+        return(find(value,root.rightPtr));
     }
 
 
-    function insert(root,value){
+    function insert(value,root = this.root){
 
         if(root == null){
             root = newNode(value);
@@ -62,24 +75,24 @@ function newTree(array){
         }
 
         if(value < root.value){
-            root.leftPtr = insert(root.leftPtr,value);
+            root.leftPtr = insert(value,root.leftPtr);
         }
         else if (value > root.value){
-            root.rightPtr = insert(root.rightPtr,value);
+            root.rightPtr = insert(value,root.rightPtr);
         }
         return root;
     }
 
-    function del(root,value){
+    function del(value,root = this.root){
         
         if (root == null){
             return root;}
    
         if (value < root.value){
-            root.leftPtr = del(root.leftPtr, value);
+            root.leftPtr = del(value,root.leftPtr);
         }
         else if (value > root.value){
-            root.rightPtr = del(root.rightPtr,value);
+            root.rightPtr = del(value,root.rightPtr);
         }
 
         else{
@@ -89,10 +102,24 @@ function newTree(array){
             else if (root.rightPtr == null){
                 return root.leftPtr;
             }
+
+            root.value = minValue(root.rightPtr);
+
+            root.rightPtr = del(root.value,root.rightPtr);
         }
 
-
     }
+
+    function minValue(root){
+        let minv = root.value;
+        while (root.leftPtr != null)
+        {
+            minv = root.leftPtr.value;
+            root = root.leftPtr;
+        }
+        return minv;
+    }
+
 
     function levelOrder(func){
 
@@ -116,31 +143,44 @@ function newTree(array){
 
 
     return{
-        root: null,
-
-        buildTree(array){
-            let setArray = [...new Set(array)];
-            let newArray = [...setArray];
-
-            newArray = mergeSort(newArray);
-
-            let n = newArray.length;
-            rt = sortedArrayToBST(newArray,0,n-1);
-
-            return(rt);
-        },
+        root: buildTree(array),
         preOrder,
         inOrder,
-        postOrder
+        postOrder,
+        find,
+        insert,
+        del
     }
 }
 
+const prettyPrint = (node, prefix = '', isLeft = true) => {
+    if (node.rightPtr !== null) {
+      prettyPrint(node.rightPtr, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+    }
+    console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
+    if (node.leftPtr !== null) {
+      prettyPrint(node.leftPtr, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+    }
+  }
 
-let alps = newTree([4,32,543,67,4,2,1,56,7]);
+let a = [12,1,2,3,5,32,12,44];
+let tree = newTree(a);
 
-let g = alps.buildTree([4,32,543,67,4,2,1,56,7]);
+console.log(tree.root);
 
-console.log(g);
+prettyPrint(tree.root);
+
+console.log(tree.root);
+
+tree.insert(8);
+tree.insert(9);
+tree.insert(90);
+tree.insert(4);
+
+prettyPrint(tree.root);
+
+tree.del(4);
+
 
 
 
