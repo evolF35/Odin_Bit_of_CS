@@ -86,27 +86,34 @@ function newTree(array){
     function del(value,root = this.root){
         
         if (root == null){
-            return root;}
+            return root;
+        }
    
         if (value < root.value){
             root.leftPtr = del(value,root.leftPtr);
+            return root;
         }
         else if (value > root.value){
             root.rightPtr = del(value,root.rightPtr);
+            return root;
         }
 
-        else{
-            if(root.leftPtr == null){
-                return root.rightPtr;
-            }
-            else if (root.rightPtr == null){
-                return root.leftPtr;
-            }
+        
+        
 
-            root.value = minValue(root.rightPtr);
 
-            root.rightPtr = del(root.value,root.rightPtr);
-        }
+        // else{
+        //     if(root.leftPtr == null){
+        //         return root.rightPtr;
+        //     }
+        //     else if (root.rightPtr == null){
+        //         return root.leftPtr;
+        //     }
+
+        //     root.value = minValue(root.rightPtr);
+
+        //     root.rightPtr = del(root.value,root.rightPtr);
+        // }
 
     }
 
@@ -178,8 +185,12 @@ tree.insert(90);
 tree.insert(4);
 
 prettyPrint(tree.root);
+console.log(tree.root);
+
 
 tree.del(4);
+
+console.log(tree.root);
 
 
 
