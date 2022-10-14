@@ -10,17 +10,13 @@ function newNode(value,leftPtr = null,rightPtr = null){
 function newTree(array){
 
     function sortedArrayToBST(array,start,end) {
-       
         if(start > end){
             return null;
         }
-
         let mid = parseInt((start+end)/2);
         let node = newNode(array[mid]);
-
         node.leftPtr = sortedArrayToBST(array,start, mid -1);
         node.rightPtr = sortedArrayToBST(array,mid + 1, end);
-
         return (node);
     }
 
@@ -43,6 +39,38 @@ function newTree(array){
     postOrder(node.leftPtr);
     postOrder(node.rightPtr);
     console.log((node.value + " "));
+    }
+
+    function find(value){
+
+    }
+
+    function insert(value){
+
+    }
+
+    function del(value){
+
+    }
+
+    function levelOrder(func){
+
+    }    
+
+    function height(node){
+
+    }
+
+    function depth(node){
+
+    }
+
+    function isBalanced(tree){
+
+    }
+
+    function rebalance(tree){
+        
     }
 
 
