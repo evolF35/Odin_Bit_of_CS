@@ -24,15 +24,25 @@ function newTree(array){
         return (node);
     }
 
-    function preOrder(node)
-    {
-    if (node == null)
-    {
-        return;
-    }
+    function preOrder(node){
+    if (node == null) {return;}
     console.log((node.value + " "));
     preOrder(node.leftPtr);
     preOrder(node.rightPtr);
+    }
+
+    function inOrder(node){
+    if (node == null) {return;}
+    inOrder(node.leftPtr);
+    console.log((node.value + " "));
+    inOrder(node.rightPtr);
+    }
+
+    function postOrder(node){
+    if (node == null) {return;}
+    postOrder(node.leftPtr);
+    postOrder(node.rightPtr);
+    console.log((node.value + " "));
     }
 
 
@@ -50,7 +60,9 @@ function newTree(array){
 
             return(rt);
         },
-        preOrder
+        preOrder,
+        inOrder,
+        postOrder
     }
 }
 
@@ -62,6 +74,27 @@ let g = alps.buildTree([4,32,543,67,4,2,1,56,7]);
 console.log(g);
 
 console.log(alps.preOrder(g));
+console.log(alps.postOrder(g));
+console.log(alps.inOrder(g));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
