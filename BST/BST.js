@@ -41,15 +41,56 @@ function newTree(array){
     console.log((node.value + " "));
     }
 
-    function find(value){
+    function find(root,value){
 
+        if(root == null || root.value == value){
+            return root;
+        }
+
+        if(root.value < value){
+            return(find(root.rightPtr),value);
+        }
+        return(find(root.leftPtr),value);
     }
 
-    function insert(value){
 
+    function insert(root,value){
+
+        if(root == null){
+            root = newNode(value);
+            return(root);
+        }
+
+        if(value < root.value){
+            root.leftPtr = insert(root.leftPtr,value);
+        }
+        else if (value > root.value){
+            root.rightPtr = insert(root.rightPtr,value);
+        }
+        return root;
     }
 
-    function del(value){
+    function del(root,value){
+        
+        if (root == null){
+            return root;}
+   
+        if (value < root.value){
+            root.leftPtr = del(root.leftPtr, value);
+        }
+        else if (value > root.value){
+            root.rightPtr = del(root.rightPtr,value);
+        }
+
+        else{
+            if(root.leftPtr == null){
+                return root.rightPtr;
+            }
+            else if (root.rightPtr == null){
+                return root.leftPtr;
+            }
+        }
+
 
     }
 
@@ -70,7 +111,7 @@ function newTree(array){
     }
 
     function rebalance(tree){
-        
+
     }
 
 
@@ -101,9 +142,7 @@ let g = alps.buildTree([4,32,543,67,4,2,1,56,7]);
 
 console.log(g);
 
-console.log(alps.preOrder(g));
-console.log(alps.postOrder(g));
-console.log(alps.inOrder(g));
+
 
 
 
