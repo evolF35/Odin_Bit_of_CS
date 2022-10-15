@@ -34,11 +34,11 @@ function newTree(array){
 
 
     function preOrder(func){
-    if (root == null) {return;}
+    if (this.root == null) {return;}
 
     let preStack = [];
     let preRes = [];
-    let cNode = root;
+    let cNode = this.root;
 
     while(preStack.length > 0){
         cNode = preStack.pop();
@@ -60,11 +60,11 @@ function newTree(array){
     }
 
     function inOrder(func){
-        if (root == null) {return;}
+        if (this.root == null) {return;}
 
         let preStack = [];
         let preRes = [];
-        let cNode = root;
+        let cNode = this.root;
     
         while(preStack.length > 0 || cNode !== null){
 
@@ -90,11 +90,11 @@ function newTree(array){
     }
 
     function postOrder(func){
-        if (root == null) {return;}
+        if (this.root == null) {return;}
 
         let preStack = [];
         let preRes = [];
-        let cNode = root;
+        let cNode = this.root;
     
         while(preStack.length > 0){
             cNode = preStack.pop();
@@ -192,11 +192,11 @@ function newTree(array){
 
     function levelOrder(func){
 
-        if (root == null){
+        if (this.root == null){
             return null;
         }
 
-        let queue = [root];
+        let queue = [this.root];
         let res = [];
 
         while(queue.length > 0){
@@ -225,8 +225,8 @@ function newTree(array){
             return 0;
         }
 
-        let leftHeight = this.height(node.leftPtr);
-        let rightHeight = this.height(node.rightPtr);
+        let leftHeight = height(node.leftPtr);
+        let rightHeight = height(node.rightPtr);
 
         if(leftHeight > rightHeight){
             return (leftHeight + 1);
@@ -265,7 +265,7 @@ function newTree(array){
         let leftHalf = tree.leftPtr;
         let rightHalf = tree.rightPtr;
 
-        if(Math.abs(this.height(leftHalf) = this.height(rightHalf)) > 1){
+        if(Math.abs(height(leftHalf) - height(rightHalf)) > 1){
             return(false);
         }
         else{
@@ -354,36 +354,19 @@ console.log(tree.find(3));
 
 
 
+// /// inspiration code down below. 
+// 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// https://github.com/lnicepei/binary-search-tree/blob/main/binary-search-tree.js
+// https://github.com/TYLPHE/binary-search-trees/blob/main/src/bst.js
+// https://github.com/JoshDevHub/JavaScript-Binary-Search-Tree/blob/main/binary-tree.js
+// https://github.com/HardRoof/binary-search-tree/blob/main/binary-tree.js
+// https://github.com/TYLPHE/binary-search-trees/blob/main/src/bst.js
+// https://github.com/Appletri/binary-search-trees
+// https://github.com/NabilHadi/binary-search-tree-javascript/blob/main/index.js
+// https://github.com/Daze-bot/binary-search-trees/blob/main/Tree.js
+// https://github.com/Apestein/Binary-Search-Tree/blob/main/bst.js
+// https://github.com/evan1mclean/binary-search-tree/blob/main/BST.js
 
 
 
