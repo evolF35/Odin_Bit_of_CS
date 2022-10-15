@@ -272,10 +272,23 @@ function newTree(array){
             return (true);
         }
 
-
     }
 
     function rebalance(tree){
+
+        if(tree == null){
+            return tree;
+        }
+
+        else if(tree.isBalanced()){
+            return ( tree);
+        }
+
+        else{
+            let threeNodes = this.preOrder();
+            let newTree = new TreeWalker(threeNodes);
+            return(newTree);
+        }
 
     }
 
@@ -287,7 +300,12 @@ function newTree(array){
         postOrder,
         find,
         insert,
-        del
+        del,
+        rebalance,
+        isBalanced,
+        height,
+        depth,
+        levelOrder
     }
 }
 
