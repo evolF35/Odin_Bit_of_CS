@@ -237,11 +237,41 @@ function newTree(array){
 
     }
 
-    function depth(node){
+    function depth(node,root = this.root, depth = 0){
+
+        if(node == null){
+            return 0;
+        }
+
+        if(node == root) 
+        {
+            return depth;
+        }
+
+        if (node.value < root.value) {
+            return this.depth(node, root.leftPtr, depth += 1);
+          } else {
+            return this.depth(node, root.rightPtr, depth += 1);
+          }
 
     }
 
-    function isBalanced(tree){
+    function isBalanced(tree = this.root){
+
+        if(tree == null){
+            return(false);
+        }
+
+        let leftHalf = tree.leftPtr;
+        let rightHalf = tree.rightPtr;
+
+        if(Math.abs(this.height(leftHalf) = this.height(rightHalf)) > 1){
+            return(false);
+        }
+        else{
+            return (true);
+        }
+
 
     }
 
@@ -303,8 +333,6 @@ prettyPrint(tree.root);
 
 console.log(tree.find(3));
 
-
-tree.levelOrder();
 
 
 
