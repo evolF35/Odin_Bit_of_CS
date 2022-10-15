@@ -33,25 +33,88 @@ function sortedArrayToBST(array,start,end) {
 function newTree(array){
 
 
-    function preOrder(node){
-    if (node == null) {return;}
-    console.log((node.value + " "));
-    preOrder(node.leftPtr);
-    preOrder(node.rightPtr);
+    function preOrder(func){
+    if (root == null) {return;}
+
+    let preStack = [];
+    let preRes = [];
+    let cNode = root;
+
+    while(preStack.length > 0){
+        cNode = preStack.pop();
+        preRes.push(cNode.value);
+
+        if(cNode.rightPtr != null){
+            preStack.push(cNode.rightPtr);
+        }
+
+        if(cNode.leftPtr != null){
+            preStack.push(cNode.leftPtr);
+        }
+
+        if(func) func(cNode);
     }
 
-    function inOrder(node){
-    if (node == null) {return;}
-    inOrder(node.leftPtr);
-    console.log((node.value + " "));
-    inOrder(node.rightPtr);
+    if(!func) return (preRes);
+
     }
 
-    function postOrder(node){
-    if (node == null) {return;}
-    postOrder(node.leftPtr);
-    postOrder(node.rightPtr);
-    console.log((node.value + " "));
+    function inOrder(func){
+        if (root == null) {return;}
+
+        let preStack = [];
+        let preRes = [];
+        let cNode = root;
+    
+        while(preStack.length > 0 || cNode !== null){
+
+            if(cNode != null){
+                preStack.push(cNode);
+                cNode = cNode.leftPtr;
+            }
+            else{
+                cNode = preStack.pop();
+                preRes.push(cNode.value);
+
+                if(func) {
+                    func(cNode);
+                    cNode = cNode.rightPtr;
+                }
+
+            }
+
+        }
+
+        if(!func) return (preRes);
+    
+    }
+
+    function postOrder(func){
+        if (root == null) {return;}
+
+        let preStack = [];
+        let preRes = [];
+        let cNode = root;
+    
+        while(preStack.length > 0){
+            cNode = preStack.pop();
+    
+            if(cNode.leftPtr != null){
+                preStack.push(cNode.leftPtr);
+            }
+    
+            if(cNode.rightPtr != null){
+                preStack.push(cNode.rightPtr);
+            }
+
+            if(func) func(cNode);
+
+            preRes.unshift(cNode.value);
+
+        }
+    
+        if(!func) return (preRes);
+    
     }
 
     function find(value,root = this.root){
@@ -128,7 +191,7 @@ function newTree(array){
 
 
     function levelOrder(func){
-        
+
         if (root == null){
             return null;
         }
@@ -156,7 +219,21 @@ function newTree(array){
 
     }    
 
-    function height(node){
+    function height(node = this.root){
+
+        if(node == null){
+            return 0;
+        }
+
+        let leftHeight = this.height(node.leftPtr);
+        let rightHeight = this.height(node.rightPtr);
+
+        if(leftHeight > rightHeight){
+            return (leftHeight + 1);
+        }
+        else{
+            return (rightHeight + 1);
+        }
 
     }
 
@@ -227,7 +304,7 @@ prettyPrint(tree.root);
 console.log(tree.find(3));
 
 
-
+tree.levelOrder();
 
 
 
