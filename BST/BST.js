@@ -91,44 +91,68 @@ function newTree(array){
    
         if (value < root.value){
             root.leftPtr = del(value,root.leftPtr);
-            return root;
         }
         else if (value > root.value){
             root.rightPtr = del(value,root.rightPtr);
-            return root;
+        }
+ 
+        else{
+            if(root.leftPtr == null){
+                return root.rightPtr;
+            }
+            else if (root.rightPtr == null){
+                return root.leftPtr;
+            }
+            else{
+                root.value = minValue(root.rightPtr);
+                root.rightPtr = del(root.value,root.rightPtr);
+
+            }
+
         }
 
-        
-        
-
-
-        // else{
-        //     if(root.leftPtr == null){
-        //         return root.rightPtr;
-        //     }
-        //     else if (root.rightPtr == null){
-        //         return root.leftPtr;
-        //     }
-
-        //     root.value = minValue(root.rightPtr);
-
-        //     root.rightPtr = del(root.value,root.rightPtr);
-        // }
-
+        return(root);
     }
+    
 
     function minValue(root){
         let minv = root.value;
-        while (root.leftPtr != null)
+        let newroot = root;
+        while (newroot.leftPtr != null)
         {
             minv = root.leftPtr.value;
-            root = root.leftPtr;
+            newroot = root.leftPtr;
         }
         return minv;
     }
 
 
     function levelOrder(func){
+        
+        if (root == null){
+            return null;
+        }
+
+        let queue = [root];
+        let res = [];
+
+        while(queue.length > 0){
+        
+            let cNode = queue.shift();
+            res.push(cNode.value);
+
+            if (cNode.rightPtr != null) {
+                queue.push(cNode.rightPtr);
+              }
+            if (cNode.leftPtr != null) {
+                queue.push(cNode.leftPtr);
+            }
+
+            if(func) func(cNode);
+        }
+
+        if(!func) {return res};
+
 
     }    
 
@@ -187,12 +211,20 @@ tree.insert(4);
 prettyPrint(tree.root);
 console.log(tree.root);
 
-
+prettyPrint(tree.root);
 tree.del(4);
 
 console.log(tree.root);
+prettyPrint(tree.root);
 
 
+tree.del(2);
+prettyPrint(tree.root);
+
+
+
+
+console.log(tree.find(3));
 
 
 
